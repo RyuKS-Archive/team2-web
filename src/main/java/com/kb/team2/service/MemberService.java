@@ -24,6 +24,12 @@ public class MemberService {
         return result;
     }
 
+    public Optional<Member> findByEmail(String email) {
+        Optional<Member> result = memberRepository.findByEmail(email);
+
+        return result;
+    }
+
     public Integer updateLastLogin(int idx) {
         int result = memberRepository.updateLastLogin(idx);
 

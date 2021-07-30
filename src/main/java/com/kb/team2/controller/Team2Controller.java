@@ -3,6 +3,7 @@ package com.kb.team2.controller;
 import com.kb.team2.entity.CUDresult;
 import com.kb.team2.entity.Member;
 import com.kb.team2.service.MemberService;
+import com.kb.team2.util.SendMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 public class Team2Controller {
-    private final Logger longger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     MemberService memberService;
@@ -50,6 +51,14 @@ public class Team2Controller {
 
     @PostMapping(value = "/auth/mail", produces = MediaType.APPLICATION_JSON_VALUE)
     public Object sendMail(@RequestParam(value = "email", required = true) String email) {
+        Optional<Member> result = memberService.findByEmail(email);
+
+        String code = result.get().getChk_code();
+        String separate = "[.]";
+        String [] tmpCode = code.split(separate);
+
+        SendMail sendmail = new SendMail(email, tmpCode[1]);
+        sendmail.transport();
 
         return true;
     }

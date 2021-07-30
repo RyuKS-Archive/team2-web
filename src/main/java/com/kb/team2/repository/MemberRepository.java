@@ -19,6 +19,9 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Query(value = "select * from member where email = :email and password = :password", nativeQuery = true)
     public Optional<Member> chkByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
+    @Query("select chk_code from member where email = :email")
+    public Optional<Member> findByEmail(@Param("email") String email);
+
     @Transactional
     @Modifying
     @Query(value = "update member set l_date = now() where idx = :idx", nativeQuery = true)
