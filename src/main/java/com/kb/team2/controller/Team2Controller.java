@@ -1,7 +1,6 @@
 package com.kb.team2.controller;
 
-import com.kb.team2.entity.CUDresult;
-import com.kb.team2.entity.Member;
+import com.kb.team2.entity.*;
 import com.kb.team2.service.MemberService;
 import com.kb.team2.util.SendMail;
 import org.slf4j.Logger;
@@ -24,6 +23,13 @@ public class Team2Controller {
     @GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity chkByEmail(@RequestParam(value = "email", required = true) String email) {
         Optional<Member> result = memberService.chkByEmail(email);
+
+        return new ResponseEntity<Member>(result.get(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/email", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity findByEmail(@RequestParam(value = "email", required = true) String email) {
+        Optional<Member> result = memberService.findByEmail(email);
 
         return new ResponseEntity<Member>(result.get(), HttpStatus.OK);
     }

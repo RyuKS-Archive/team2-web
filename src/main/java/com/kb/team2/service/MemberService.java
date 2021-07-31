@@ -1,6 +1,6 @@
 package com.kb.team2.service;
 
-import com.kb.team2.entity.Member;
+import com.kb.team2.entity.*;
 import com.kb.team2.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

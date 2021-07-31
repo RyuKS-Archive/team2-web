@@ -23,7 +23,7 @@ public class SendMail {
 
         try {
             Properties props = new Properties();
-            props.put("mail.smtp.host", "localhost");
+            props.put("mail.smtp.host", "192.168.21.13");
             props.put("mail.smtp.user", "team2_info");
             props.put("mail.smtp.password", "123qwe");
 

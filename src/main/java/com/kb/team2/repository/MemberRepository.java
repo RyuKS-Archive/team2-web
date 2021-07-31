@@ -1,6 +1,6 @@
 package com.kb.team2.repository;
 
-import com.kb.team2.entity.Member;
+import com.kb.team2.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,13 +13,13 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
-    @Query("select email from member where email = :email")
+    @Query("select m.email from member m where m.email = :email")
     public Optional<Member> chkByEmail(@Param("email") String email);
 
     @Query(value = "select * from member where email = :email and password = :password", nativeQuery = true)
     public Optional<Member> chkByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
-    @Query("select chk_code from member where email = :email")
+    @Query("select new com.kb.team2.entity.Member(m.email, m.chk_code) from member m where m.email = :email")
     public Optional<Member> findByEmail(@Param("email") String email);
 
     @Transactional

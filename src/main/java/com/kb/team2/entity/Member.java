@@ -1,6 +1,8 @@
 package com.kb.team2.entity;
 
 import lombok.*;
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,14 +23,18 @@ public class Member {
     private String os_project_name;
     private String os_user_domain_name;
     private String os_project_domain_name;
-    private Date j_date;
-    private Date l_date;
+    //protected Date j_date;
+    //protected Date l_date;
 
-    /*
-    @Builder
+    //@Builder
     public Member(String email){
         this.email = email;
     }
-    */
+
+    public Member(String email, String chk_code) {
+        this.email = email;
+        this.chk_code = chk_code;
+    }
+
 }
 
