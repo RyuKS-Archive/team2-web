@@ -1,3 +1,6 @@
+logging:
+  config: classpath:logback.xml
+
 server:
   port: 8000
 
@@ -15,3 +18,5 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+
