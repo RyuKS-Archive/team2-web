@@ -10,13 +10,16 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: tomcat
     password: 123qwe!@#QWE
+    hikari:
+      idle-timeout: 270
+      max-lifetime: 270
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+        #show_sql: true
+        #format_sql: true
 
 

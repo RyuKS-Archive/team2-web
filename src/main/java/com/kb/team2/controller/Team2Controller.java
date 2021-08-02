@@ -74,10 +74,17 @@ public class Team2Controller {
         String chk_code = "0." + code;
         int result = memberService.updateAuthFlg(chk_code);
 
-        CUDresult cudResult = new CUDresult();
-        cudResult.setResult(result == 1 ? true : false);
+        String resultMsg = "";
+        //CUDresult cudResult = new CUDresult();
+        //cudResult.setResult(result == 1 ? true : false);
 
-        return cudResult;
+        if (result == 1) {
+            resultMsg = "이메일 인증이 완료되었습니다. 창을 닫고 로그인해 주세요. Bono 2 team";
+        } else {
+            resultMsg = "오류가 발생했습니다. 관리자에게 문의하여 주세요.";
+        }
+
+        return resultMsg;
     }
 
     @PostMapping(value = "/user/os", produces = MediaType.APPLICATION_JSON_VALUE)
