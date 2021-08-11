@@ -16,9 +16,9 @@ public class Member {
     private int idx;
     private String email;
     private String name;
-    private String password;
-    private int chk_flg;
-    private String chk_code;
+    //private String password;
+    private int auth_flg;
+    private String auth_code;
     private int os_use_flg;
     private String os_project_name;
     private String os_user_domain_name;
@@ -31,9 +31,9 @@ public class Member {
         this.email = email;
     }
 
-    public Member(String email, String chk_code) {
+    public Member(String email, String auth_code) {
         this.email = email;
-        this.chk_code = chk_code;
+        this.auth_code = auth_code;
     }
 
 }

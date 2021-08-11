@@ -36,6 +36,12 @@ public class MemberService {
         return result;
     }
 
+    public Integer updateAuthMailDate(String email) {
+        int result = memberRepository.updateAuthMailDate(email);
+
+        return result;
+    }
+
     public Integer insertMember(String email, String password, String name) {
         int result = memberRepository.insertMember(email, password, name);
 
@@ -48,8 +54,8 @@ public class MemberService {
         return result;
     }
 
-    public Integer updateOsUse(String p_name, String u_domain, String p_domain, String email) {
-        int result = memberRepository.updateOsUse(p_name, u_domain, p_domain, email);
+    public Integer updateOsUse(String email) {
+        int result = memberRepository.updateOsUse(email);
 
         return result;
     }

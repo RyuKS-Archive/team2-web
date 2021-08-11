@@ -19,7 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Query(value = "select * from member where email = :email and password = :password", nativeQuery = true)
     public Optional<Member> chkByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
-    @Query("select new com.kb.team2.entity.Member(m.email, m.chk_code) from member m where m.email = :email")
+    @Query("select new com.kb.team2.entity.Member(m.email, m.auth_code) from member m where m.email = :email")
     public Optional<Member> findByEmail(@Param("email") String email);
 
     @Transactional
@@ -29,20 +29,23 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     @Transactional
     @Modifying
+    @Query(value = "update member set auth_m_date = now() where email = :email", nativeQuery = true)
+    public Integer updateAuthMailDate(@Param("email") String email);
+
+    @Transactional
+    @Modifying
     @Query(value = "insert into member (email, password, name) values (:email, :password, :name)", nativeQuery = true)
     public Integer insertMember(@Param("email") String email, @Param("password") String password, @Param("name") String name);
 
     @Transactional
     @Modifying
-    @Query(value = "update member set chk_flg = 1 where chk_code = :code", nativeQuery = true)
+    @Query(value = "update member set auth_flg = 1 where auth_code = :code", nativeQuery = true)
     public Integer updateAuthFlg(@Param("code") String code);
 
     @Transactional
     @Modifying
-    @Query(value = "update member set os_use_flg = 1, os_project_name = :p_name, os_user_domain_name = :u_domain, " +
-            "os_project_domain_name = :p_domain where email = :email", nativeQuery = true)
-    public Integer updateOsUse(@Param("p_name") String p_name, @Param("u_domain") String u_domain, @Param("p_domain")
-            String p_domain, @Param("email") String email);
+    @Query(value = "update member set os_use_flg = 1 where email = :email", nativeQuery = true)
+    public Integer updateOsUse(@Param("email") String email);
 
 }
 

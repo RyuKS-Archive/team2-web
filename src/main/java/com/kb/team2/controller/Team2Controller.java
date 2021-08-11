@@ -59,20 +59,22 @@ public class Team2Controller {
     public Object sendMail(@RequestParam(value = "email", required = true) String email) {
         Optional<Member> result = memberService.findByEmail(email);
 
-        String code = result.get().getChk_code();
+        String code = result.get().getAuth_code();
         String separate = "[.]";
         String [] tmpCode = code.split(separate);
 
         SendMail sendmail = new SendMail(email, tmpCode[1]);
         sendmail.transport();
 
+        memberService.updateAuthMailDate(email);
+
         return true;
     }
 
     @GetMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
     public Object updateAuthFlg(@RequestParam(value = "code", required = true) String code) {
-        String chk_code = "0." + code;
-        int result = memberService.updateAuthFlg(chk_code);
+        String auth_code = "0." + code;
+        int result = memberService.updateAuthFlg(auth_code);
 
         String resultMsg = "";
         //CUDresult cudResult = new CUDresult();
@@ -81,18 +83,15 @@ public class Team2Controller {
         if (result == 1) {
             resultMsg = "이메일 인증이 완료되었습니다. 창을 닫고 로그인해 주세요. Bono 2 team";
         } else {
-            resultMsg = "오류가 발생했습니다. 관리자에게 문의하여 주세요.";
+            resultMsg = "이메일 인증에 실패하였습니다, 관리자에게 문의하여 주세요.";
         }
 
         return resultMsg;
     }
 
     @PostMapping(value = "/user/os", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object updateOsUse(@RequestParam(value = "email", required = true) String email,
-                              @RequestParam(value = "p_name", required = true) String p_name,
-                              @RequestParam(value = "u_domain", required = true) String u_domain,
-                              @RequestParam(value = "p_domain", required = true) String p_domain) {
-        int result = memberService.updateOsUse(p_name, u_domain, p_domain, email);
+    public Object updateOsUse(@RequestParam(value = "email", required = true) String email) {
+        int result = memberService.updateOsUse(email);
 
         CUDresult cudResult = new CUDresult();
         cudResult.setResult(result == 1 ? true : false);

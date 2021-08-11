@@ -19,7 +19,7 @@ public class SendMail {
     public void transport(){
         String from = "team2_info@mail.bono.com";
         String title = "Certification mail!!";
-        String content = "<html><body><div>Bono 2 Team 계정 인증 메일 입니다.</div><div><a href='http://210.216.61.151:12080/auth?code=" + code + "'>인증 하기</a></div></body></html>";
+        String content = "<html><body><div>Bono 2 Team 계정 인증 메일 입니다.</div><div><a href='http://210.216.61.151:12080/auth?code=" + code + "'>인증 하기</a></div><div>익일 24시 인증 메일의 유효가 만료됩니다.</div></body></html>";
 
         try {
             Properties props = new Properties();
